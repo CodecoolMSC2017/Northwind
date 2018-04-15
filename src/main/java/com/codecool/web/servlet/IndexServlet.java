@@ -1,5 +1,6 @@
 package com.codecool.web.servlet;
 
+import com.codecool.web.model.QueryResult;
 import com.codecool.web.service.HeadersService;
 import com.codecool.web.service.ListingService;
 
@@ -16,8 +17,7 @@ import java.util.List;
 @WebServlet("/index")
 public class IndexServlet extends AbstractServlet {
 
-    // https://www.postgresql.org/docs/current/static/errcodes-appendix.html
-    private static final String SQL_ERROR_CODE_UNIQUE_VIOLATION = "23505";
+    QueryResult qr = QueryResult.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,14 +28,14 @@ public class IndexServlet extends AbstractServlet {
             HeadersService head = new HeadersService();
 
             List<String> headers = head.getHeaders(id);
-            List<List> results = lister.runQuery(id);
+            lister.runQuery(id);
 
             req.setAttribute("headers", headers);
-            req.setAttribute("results", results);
+            req.setAttribute("results", qr.getResults());
+            req.setAttribute("task", id);
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
         req.getRequestDispatcher("results.jsp").forward(req, resp);
     }
-
 }

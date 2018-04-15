@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.dao.QueryDao;
+import com.codecool.web.model.QueryResult;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,9 +16,10 @@ public final class ListingService {
         this.connection = connection;
     }
 
-    public List<List> runQuery(String task) throws SQLException {
+    public void runQuery(String task) throws SQLException {
         List<List> results;
         String sql = null;
+        QueryResult qr = QueryResult.getInstance();
 
         switch (task) {
             case "task1":
@@ -38,9 +40,9 @@ public final class ListingService {
         }
             QueryDao queryDao = new QueryDao(connection);
             results = queryDao.execute(sql);
-            System.out.println(sql);
 
-        return results;
+            qr.setResults(results);
+
     }
 
 }

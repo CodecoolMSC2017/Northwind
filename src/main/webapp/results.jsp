@@ -1,6 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Results</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+</head>
 <html lang="en">
 <body>
 <h1>Query Results</h1>
@@ -15,7 +22,8 @@
     <input type="hidden" name="id" value="${task}">
     <input type="submit" value="Filter">
 </form>
-<table>
+<br><br>
+<table class="center">
     <thead>
     <tr>
         <c:forEach var="head" items="${headers}">
